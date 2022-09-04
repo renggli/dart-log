@@ -7,8 +7,7 @@ import '../printers.dart';
 import '../record.dart';
 
 class PrintHandler extends Handler {
-  PrintHandler({Printer<Record>? printer})
-      : printer = printer ?? basicPrinter;
+  PrintHandler({Printer<Record>? printer}) : printer = printer ?? basicPrinter;
 
   final Printer<Record> printer;
 

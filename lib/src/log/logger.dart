@@ -4,12 +4,25 @@ import 'package:more/printer.dart';
 
 import 'config.dart';
 import 'handler.dart';
+import 'handlers/print.dart';
 import 'level.dart';
 import 'record.dart';
 
 class Logger with ToStringPrinter implements Handler {
-  /// Create a new logger.
-  Logger(this.name, {this.parent});
+  /// Returns the root logger, or one of its descendants if called with dot-
+  /// separated hierarchical name. Multiple calls with the same name will return
+  /// the same [Logger].
+  ///
+  /// The hierarchical name is typically starting with the package name, followed
+  /// by directory, file or class names; example names look like `log.handlers` or
+  /// `log.handlers..Heap`.
+  factory Logger([String? name]) => root.getChild(name);
+
+  /// Internal constructor to create a new logger.
+  Logger._(this.name, {this.parent});
+
+  /// Returns the default root logger.
+  static final root = Logger._('dart')..addHandler(PrintHandler());
 
   /// The name of the logger.
   final String name;
@@ -38,7 +51,9 @@ class Logger with ToStringPrinter implements Handler {
   /// The full name of the logger.
   String get fullName {
     final names = <String>[];
-    for (Logger? current = this; current != null; current = current.parent) {
+    for (Logger? current = this;
+        current != null && current != root;
+        current = current.parent) {
       names.add(current.name);
     }
     return names.reversed.join('.');
@@ -51,7 +66,8 @@ class Logger with ToStringPrinter implements Handler {
       return this;
     }
     final name = suffix.takeTo('.');
-    final child = _children.putIfAbsent(name, () => Logger(name, parent: this));
+    final child =
+        _children.putIfAbsent(name, () => Logger._(name, parent: this));
     return child.getChild(suffix.skipTo('.'));
   }
 

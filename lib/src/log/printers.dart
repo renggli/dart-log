@@ -16,4 +16,3 @@ final basicPrinter = <Printer<Record>>[
   messagePrinter,
   createdPrinter.around(' [', ']'),
 ].toPrinter();
-

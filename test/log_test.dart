@@ -13,7 +13,7 @@ Matcher isRecord({
 
 void main() {
   final rootHandler = MemoryHandler();
-  final root = getLogger('log_test')
+  final root = Logger('log_test')
     ..dispatchToParents = constantFunction1(false)
     ..addHandler(rootHandler);
   final originalGlobalLogLevel = globalLogLevel;
@@ -23,23 +23,23 @@ void main() {
 
   group('constructors', () {
     test('root', () {
-      final root = getLogger();
-      expect(root, same(getLogger()));
+      final root = Logger.root;
+      expect(root, same(Logger.root));
       expect(root.name, 'dart');
       expect(root.parent, isNull);
       expect(root.dispatchToParents, isNull);
       expect(root.dispatchToHandlers, isNull);
-      expect(root.fullName, 'dart');
+      expect(root.fullName, '');
       expect(root.handlers, isNotEmpty);
     });
     test('child', () {
-      final child = getLogger('constructors.parent.child');
-      expect(child, same(getLogger('constructors.parent.child')));
+      final child = Logger('constructors.parent.child');
+      expect(child, same(Logger('constructors.parent.child')));
       expect(child.name, 'child');
-      expect(child.parent, same(getLogger('constructors.parent')));
+      expect(child.parent, same(Logger('constructors.parent')));
       expect(child.dispatchToParents, isNull);
       expect(child.dispatchToHandlers, isNull);
-      expect(child.fullName, 'dart.constructors.parent.child');
+      expect(child.fullName, 'constructors.parent.child');
       expect(child.handlers, isEmpty);
     });
   });

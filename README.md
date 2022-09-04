@@ -16,7 +16,8 @@ Misc
 
 ### Installation
 
-Follow the installation instructions on [dart packages](https://pub.dev/packages/log/install).
+Follow the installation instructions
+on [dart packages](https://pub.dev/packages/log/install).
 
 Import the all-including parent package:
 
@@ -26,8 +27,13 @@ import 'package:log/log.dart';
 
 ### Contributing
 
-The goal of the library is to provide sophisticated logging. All features must be well tested. New features must have significant advantages over alternatives, such as code reduction, readability improvement, speed increase, memory reduction, or improved accuracy. In case of doubt, consider filing a feature request before filing a pull request.
+The goal of the library is to provide sophisticated logging. All features must
+be well tested. New features must have significant advantages over alternatives,
+such as code reduction, readability improvement, speed increase, memory
+reduction, or improved accuracy. In case of doubt, consider filing a feature
+request before filing a pull request.
 
 ### License
 
-The MIT License, see [LICENSE](https://github.com/renggli/dart-log/raw/main/LICENSE).
+The MIT License,
+see [LICENSE](https://github.com/renggli/dart-log/raw/main/LICENSE).
