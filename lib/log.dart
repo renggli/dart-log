@@ -5,6 +5,7 @@ export 'src/log/handlers/null.dart';
 export 'src/log/handlers/print.dart';
 export 'src/log/handlers/sink.dart';
 export 'src/log/handlers/stream.dart';
+export 'src/log/handlers/syslog.dart';
 export 'src/log/level.dart';
 export 'src/log/logger.dart';
 export 'src/log/printers.dart';
