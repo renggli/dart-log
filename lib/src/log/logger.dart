@@ -136,6 +136,6 @@ class Logger with ToStringPrinter implements Handler {
   }
 
   @override
-  ObjectPrinter get toStringPrinter =>
+  ObjectPrinter<dynamic> get toStringPrinter =>
       super.toStringPrinter..addValue(fullName, name: 'fullName');
 }

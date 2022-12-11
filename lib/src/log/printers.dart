@@ -12,7 +12,7 @@ final createdPrinter =
 
 final basicPrinter = <Printer<Record>>[
   levelPrinter,
-  Printer.literal(': '),
+  const Printer.literal(': '),
   messagePrinter,
   createdPrinter.around(' [', ']'),
 ].toPrinter();

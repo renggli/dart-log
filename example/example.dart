@@ -17,7 +17,7 @@ Future<void> main() async {
   logger.debug('Application is starting');
   logger.info('Application is running');
   logger.warning('Application is stalling');
-  sleep(Duration(seconds: 1));
+  sleep(const Duration(seconds: 1));
   logger.error('Application is stopping');
   logger.fatal('Application is terminating');
 }

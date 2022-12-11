@@ -5,7 +5,7 @@ import '../record.dart';
 
 class SinkHandler extends Handler {
   SinkHandler(this.sink, {Printer<Record>? printer})
-      : printer = printer ?? Printer.standard();
+      : printer = printer ?? const Printer.standard();
 
   final StringSink sink;
   final Printer<Record> printer;

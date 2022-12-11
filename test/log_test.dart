@@ -110,7 +110,7 @@ void main() {
       innerLogger.dispatchToParents = (record) => false;
       innerLogger.info('Propagation');
       expect(innerHandler.buffer, [isRecord(message: 'Propagation')]);
-      expect(rootHandler.buffer, []);
+      expect(rootHandler.buffer, <Record>[]);
     });
     test('dynamic', () {
       innerLogger.dispatchToParents = (record) => record.level >= Level.info;
@@ -160,7 +160,7 @@ void main() {
     test('false', () {
       innerLogger.dispatchToHandlers = (record) => false;
       innerLogger.info('Handled');
-      expect(innerHandler.buffer, []);
+      expect(innerHandler.buffer, <Record>[]);
       expect(rootHandler.buffer, [isRecord(message: 'Handled')]);
     });
     test('dynamic', () {
