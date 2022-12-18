@@ -55,7 +55,7 @@ void main() {
         Level.fatal,
         Level.off
       ];
-      expect(naturalComparator<Level>().isStrictlyOrdered(levels), isTrue);
+      expect(naturalComparable<Level>.isStrictlyOrdered(levels), isTrue);
     });
     test('trace', () {
       root.trace('Trace');
