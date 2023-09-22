@@ -18,7 +18,7 @@ void main() {
     ..addHandler(rootHandler);
   final originalGlobalLogLevel = globalLogLevel;
   setUp(() => globalLogLevel = Level.all);
-  tearDown(() => rootHandler.buffer.clear());
+  tearDown(rootHandler.buffer.clear);
   tearDownAll(() => globalLogLevel = originalGlobalLogLevel);
 
   group('constructors', () {
