@@ -8,7 +8,7 @@ final fullNamePrinter =
 final levelPrinter = Printer<Record>.pluggable((record) => record.level.label);
 final messagePrinter = Printer<Record>.pluggable((record) => record.message);
 final createdPrinter =
-    DateTimePrinter.iso8691().onResultOf<Record>((record) => record.created);
+    DateTimePrinter.iso8601().onResultOf<Record>((record) => record.created);
 
 final basicPrinter = <Printer<Record>>[
   levelPrinter,
