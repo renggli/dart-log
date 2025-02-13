@@ -5,7 +5,7 @@ homepage: https://github.com/renggli/dart-log
 description: A logging library for Dart.
 
 environment:
-  sdk: ^3.5.0
+  sdk: ^3.7.0
 dependencies:
   more: ^4.3.0
   meta: ^1.16.0

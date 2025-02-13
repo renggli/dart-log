@@ -51,9 +51,11 @@ class Logger with ToStringPrinter implements Handler {
   /// The full name of the logger.
   String get fullName {
     final names = <String>[];
-    for (Logger? current = this;
-        current != null && current != root;
-        current = current.parent) {
+    for (
+      Logger? current = this;
+      current != null && current != root;
+      current = current.parent
+    ) {
       names.add(current.name);
     }
     return names.reversed.join('.');
@@ -66,8 +68,10 @@ class Logger with ToStringPrinter implements Handler {
       return this;
     }
     final name = suffix.takeTo('.');
-    final child =
-        _children.putIfAbsent(name, () => Logger._(name, parent: this));
+    final child = _children.putIfAbsent(
+      name,
+      () => Logger._(name, parent: this),
+    );
     return child.getChild(suffix.skipTo('.'));
   }
 
@@ -100,17 +104,24 @@ class Logger with ToStringPrinter implements Handler {
 
   /// Logs a generic [level] and [message], with optional [error] and
   /// [stackTrace].
-  void log(Level level, String message,
-      {Object? error, StackTrace? stackTrace}) {
+  void log(
+    Level level,
+    String message, {
+    Object? error,
+    StackTrace? stackTrace,
+  }) {
     // Create the log record and dispatch only, if the required level is
     // at least the [globalLogLevel].
     if (globalLogLevel <= level) {
-      dispatch(Record(
+      dispatch(
+        Record(
           logger: this,
           level: level,
           message: message,
           error: error,
-          stackTrace: stackTrace ?? StackTrace.current));
+          stackTrace: stackTrace ?? StackTrace.current,
+        ),
+      );
     }
   }
 

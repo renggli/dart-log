@@ -3,19 +3,17 @@ import 'package:more/comparator.dart';
 import 'package:more/functional.dart';
 import 'package:test/test.dart';
 
-Matcher isRecord({
-  dynamic level = anything,
-  dynamic message = anything,
-}) =>
+Matcher isRecord({dynamic level = anything, dynamic message = anything}) =>
     isA<Record>()
         .having((record) => record.level, 'level', level)
         .having((record) => record.message, 'message', message);
 
 void main() {
   final rootHandler = MemoryHandler();
-  final root = Logger('log_test')
-    ..dispatchToParents = constantFunction1(false)
-    ..addHandler(rootHandler);
+  final root =
+      Logger('log_test')
+        ..dispatchToParents = constantFunction1(false)
+        ..addHandler(rootHandler);
   final originalGlobalLogLevel = globalLogLevel;
   setUp(() => globalLogLevel = Level.all);
   tearDown(rootHandler.buffer.clear);
@@ -53,39 +51,45 @@ void main() {
         Level.warning,
         Level.error,
         Level.fatal,
-        Level.off
+        Level.off,
       ];
       expect(naturalComparable<Level>.isStrictlyOrdered(levels), isTrue);
     });
     test('trace', () {
       root.trace('Trace');
-      expect(
-          rootHandler.buffer, [isRecord(level: Level.trace, message: 'Trace')]);
+      expect(rootHandler.buffer, [
+        isRecord(level: Level.trace, message: 'Trace'),
+      ]);
     });
     test('debug', () {
       root.debug('Debug');
-      expect(
-          rootHandler.buffer, [isRecord(level: Level.debug, message: 'Debug')]);
+      expect(rootHandler.buffer, [
+        isRecord(level: Level.debug, message: 'Debug'),
+      ]);
     });
     test('info', () {
       root.info('Info');
-      expect(
-          rootHandler.buffer, [isRecord(level: Level.info, message: 'Info')]);
+      expect(rootHandler.buffer, [
+        isRecord(level: Level.info, message: 'Info'),
+      ]);
     });
     test('warning', () {
       root.warning('Warning');
-      expect(rootHandler.buffer,
-          [isRecord(level: Level.warning, message: 'Warning')]);
+      expect(rootHandler.buffer, [
+        isRecord(level: Level.warning, message: 'Warning'),
+      ]);
     });
     test('error', () {
       root.error('Error');
-      expect(
-          rootHandler.buffer, [isRecord(level: Level.error, message: 'Error')]);
+      expect(rootHandler.buffer, [
+        isRecord(level: Level.error, message: 'Error'),
+      ]);
     });
     test('fatal', () {
       root.fatal('Fatal');
-      expect(
-          rootHandler.buffer, [isRecord(level: Level.fatal, message: 'Fatal')]);
+      expect(rootHandler.buffer, [
+        isRecord(level: Level.fatal, message: 'Fatal'),
+      ]);
     });
   });
   group('parents', () {
@@ -119,7 +123,7 @@ void main() {
         ..trace('No propagation');
       expect(innerHandler.buffer, [
         isRecord(message: 'Propagation'),
-        isRecord(message: 'No propagation')
+        isRecord(message: 'No propagation'),
       ]);
       expect(rootHandler.buffer, [isRecord(message: 'Propagation')]);
     });
@@ -170,17 +174,22 @@ void main() {
         ..warning('Handled')
         ..warning('Not handled');
       expect(innerHandler.buffer, [isRecord(message: 'Handled')]);
-      expect(rootHandler.buffer,
-          [isRecord(message: 'Handled'), isRecord(message: 'Not handled')]);
+      expect(rootHandler.buffer, [
+        isRecord(message: 'Handled'),
+        isRecord(message: 'Not handled'),
+      ]);
     });
     test('multiple', () {
       final innerHandler = MemoryHandler();
-      final innerLogger = root.getChild('handlers.multiple')
-        ..addHandler(innerHandler)
-        ..addHandler(innerHandler);
+      final innerLogger =
+          root.getChild('handlers.multiple')
+            ..addHandler(innerHandler)
+            ..addHandler(innerHandler);
       innerLogger.info('Repeated');
-      expect(innerHandler.buffer,
-          [isRecord(message: 'Repeated'), isRecord(message: 'Repeated')]);
+      expect(innerHandler.buffer, [
+        isRecord(message: 'Repeated'),
+        isRecord(message: 'Repeated'),
+      ]);
       expect(rootHandler.buffer, [isRecord(message: 'Repeated')]);
     });
   });

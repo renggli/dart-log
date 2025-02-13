@@ -2,9 +2,10 @@ import 'dart:io';
 
 import 'package:log/log.dart';
 
-final logger = Logger('example')
-  ..dispatchToParents = ((record) => false)
-  ..addHandler(SinkHandler(stdout, printer: basicPrinter));
+final logger =
+    Logger('example')
+      ..dispatchToParents = ((record) => false)
+      ..addHandler(SinkHandler(stdout, printer: basicPrinter));
 
 Future<void> main() async {
   globalLogLevel = Level.all;

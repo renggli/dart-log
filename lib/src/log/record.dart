@@ -31,11 +31,12 @@ class Record with ToStringPrinter {
   final StackTrace? stackTrace;
 
   @override
-  ObjectPrinter<dynamic> get toStringPrinter => super.toStringPrinter
-    ..addValue(logger.fullName, name: 'logger')
-    ..addValue(level.label, name: 'level')
-    ..addValue(message, name: 'message')
-    ..addValue(created, name: 'created')
-    ..addValue(error, name: 'error', omitNull: true)
-    ..addValue(stackTrace, name: 'stackTrace', omitNull: true);
+  ObjectPrinter<dynamic> get toStringPrinter =>
+      super.toStringPrinter
+        ..addValue(logger.fullName, name: 'logger')
+        ..addValue(level.label, name: 'level')
+        ..addValue(message, name: 'message')
+        ..addValue(created, name: 'created')
+        ..addValue(error, name: 'error', omitNull: true)
+        ..addValue(stackTrace, name: 'stackTrace', omitNull: true);
 }

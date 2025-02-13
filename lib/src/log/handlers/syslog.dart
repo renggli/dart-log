@@ -46,10 +46,7 @@ enum Priority {
 }
 
 class SyslogHandler extends Handler {
-  SyslogHandler({
-    this.host = 'localhost',
-    this.port = 514,
-  });
+  SyslogHandler({this.host = 'localhost', this.port = 514});
 
   final String host;
   final int port;
@@ -72,17 +69,18 @@ class SyslogHandler extends Handler {
 
   Facility getFacility(Record record) => Facility.user;
 
-  Priority getPriority(Record record) => record.level <= Level.debug
-      ? Priority.debug
-      : record.level <= Level.info
+  Priority getPriority(Record record) =>
+      record.level <= Level.debug
+          ? Priority.debug
+          : record.level <= Level.info
           ? Priority.info
           : record.level <= Level.warning
-              ? Priority.warning
-              : record.level <= Level.error
-                  ? Priority.error
-                  : record.level <= Level.fatal
-                      ? Priority.critical
-                      : Priority.alert;
+          ? Priority.warning
+          : record.level <= Level.error
+          ? Priority.error
+          : record.level <= Level.fatal
+          ? Priority.critical
+          : Priority.alert;
 
   @override
   void dispatch(Record record) {
