@@ -10,10 +10,9 @@ Matcher isRecord({dynamic level = anything, dynamic message = anything}) =>
 
 void main() {
   final rootHandler = MemoryHandler();
-  final root =
-      Logger('log_test')
-        ..dispatchToParents = constantFunction1(false)
-        ..addHandler(rootHandler);
+  final root = Logger('log_test')
+    ..dispatchToParents = constantFunction1(false)
+    ..addHandler(rootHandler);
   final originalGlobalLogLevel = globalLogLevel;
   setUp(() => globalLogLevel = Level.all);
   tearDown(rootHandler.buffer.clear);
@@ -168,8 +167,8 @@ void main() {
       expect(rootHandler.buffer, [isRecord(message: 'Handled')]);
     });
     test('dynamic', () {
-      innerLogger.dispatchToHandlers =
-          (record) => !record.message.startsWith('Not');
+      innerLogger.dispatchToHandlers = (record) =>
+          !record.message.startsWith('Not');
       innerLogger
         ..warning('Handled')
         ..warning('Not handled');
@@ -181,10 +180,9 @@ void main() {
     });
     test('multiple', () {
       final innerHandler = MemoryHandler();
-      final innerLogger =
-          root.getChild('handlers.multiple')
-            ..addHandler(innerHandler)
-            ..addHandler(innerHandler);
+      final innerLogger = root.getChild('handlers.multiple')
+        ..addHandler(innerHandler)
+        ..addHandler(innerHandler);
       innerLogger.info('Repeated');
       expect(innerHandler.buffer, [
         isRecord(message: 'Repeated'),

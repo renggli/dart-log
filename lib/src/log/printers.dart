@@ -12,10 +12,9 @@ final createdPrinter = DateTimePrinter.iso8601().onResultOf<Record>(
   (record) => record.created,
 );
 
-final basicPrinter =
-    <Printer<Record>>[
-      levelPrinter,
-      const Printer.literal(': '),
-      messagePrinter,
-      createdPrinter.around(' [', ']'),
-    ].toPrinter();
+final basicPrinter = <Printer<Record>>[
+  levelPrinter,
+  const Printer.literal(': '),
+  messagePrinter,
+  createdPrinter.around(' [', ']'),
+].toPrinter();
