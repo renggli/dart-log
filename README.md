@@ -1,5 +1,4 @@
-Dart Log
-========
+# Dart Log
 
 [![Pub Package](https://img.shields.io/pub/v/log.svg)](https://pub.dev/packages/log)
 [![Build Status](https://github.com/renggli/dart-log/actions/workflows/dart.yml/badge.svg?branch=main)](https://github.com/renggli/dart-log/actions/workflows/dart.yml)
@@ -11,8 +10,7 @@ Dart Log
 
 A logging library for Dart.
 
-Misc
-----
+## Misc
 
 ### Installation
 
