@@ -1,6 +1,5 @@
 # Dart Log
 
-[![Pub Package](https://img.shields.io/pub/v/log.svg)](https://pub.dev/packages/log)
 [![Build Status](https://github.com/renggli/dart-log/actions/workflows/dart.yml/badge.svg?branch=main)](https://github.com/renggli/dart-log/actions/workflows/dart.yml)
 [![Code Coverage](https://codecov.io/gh/renggli/dart-log/branch/main/graph/badge.svg?token=b0fvRMeMBR)](https://codecov.io/gh/renggli/dart-log)
 [![GitHub Issues](https://img.shields.io/github/issues/renggli/dart-log.svg)](https://github.com/renggli/dart-log/issues)
