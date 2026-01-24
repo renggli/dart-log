@@ -7,6 +7,7 @@ import '../handler.dart';
 import '../level.dart';
 import '../record.dart';
 
+/// The facility of a syslog message.
 enum Facility {
   kern, //	Kernel messages
   user, //	User-level messages
@@ -34,6 +35,7 @@ enum Facility {
   local7,
 }
 
+/// The priority of a syslog message.
 enum Priority {
   emergency,
   alert,
@@ -45,6 +47,7 @@ enum Priority {
   debug,
 }
 
+/// A handler that sends log records to a syslog server.
 class SyslogHandler extends Handler {
   SyslogHandler({this.host = 'localhost', this.port = 514});
 

@@ -3,6 +3,7 @@ import 'dart:async';
 import '../handler.dart';
 import '../record.dart';
 
+/// A handler that publishes log records to a [Stream].
 class StreamHandler extends Handler {
   StreamHandler();
 

@@ -1,8 +1,12 @@
 import 'package:more/printer.dart';
 
+import 'handler.dart';
 import 'level.dart';
 import 'logger.dart';
 
+/// A log record is a single event being logged.
+///
+/// Records are created by [Logger]s and processed by [Handler]s.
 class Record with ToStringPrinter {
   Record({
     required this.logger,

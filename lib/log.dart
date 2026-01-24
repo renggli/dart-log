@@ -1,3 +1,6 @@
+/// A library to support logging in Dart.
+library;
+
 export 'src/log/config.dart';
 export 'src/log/handler.dart';
 export 'src/log/handlers/memory.dart';

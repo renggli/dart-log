@@ -1,6 +1,16 @@
 import 'package:more/comparator.dart';
 
 /// The different log levels describe the importance of log events.
+///
+/// Log levels are ordered by their priority.
+///
+/// Example:
+///
+/// ```dart
+/// const level = Level.info;
+/// print(level.priority); // 3000
+/// print(level.label); // info
+/// ```
 class Level with CompareOperators<Level> implements Comparable<Level> {
   /// Constructs a log level with a given priority and label.
   const Level(this.priority, this.label)
