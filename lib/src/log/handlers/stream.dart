@@ -5,7 +5,7 @@ import '../record.dart';
 
 /// A handler that publishes log records to a [Stream].
 class StreamHandler extends Handler {
-  StreamHandler();
+  new();
 
   final _controller = StreamController<Record>.broadcast();
 

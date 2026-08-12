@@ -16,10 +16,10 @@ class Logger with ToStringPrinter implements Handler {
   /// The hierarchical name is typically starting with the package name, followed
   /// by directory, file or class names; example names look like `log.handlers` or
   /// `log.handlers.Heap`.
-  factory Logger([String? name]) => root.getChild(name);
+  factory([String? name]) => root.getChild(name);
 
   /// Internal constructor to create a new logger.
-  Logger._(this.name, {this.parent});
+  new _(this.name, {this.parent});
 
   /// Returns the default root logger.
   static final root = Logger._('dart')..addHandler(PrintHandler());

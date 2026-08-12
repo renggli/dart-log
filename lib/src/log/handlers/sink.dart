@@ -5,7 +5,7 @@ import '../record.dart';
 
 /// A handler that writes log records to a [StringSink].
 class SinkHandler extends Handler {
-  SinkHandler(this.sink, {Printer<Record>? printer})
+  new(this.sink, {Printer<Record>? printer})
     : printer = printer ?? const Printer.standard();
 
   final StringSink sink;

@@ -13,11 +13,11 @@ import 'package:more/comparator.dart';
 /// ```
 class Level with CompareOperators<Level> implements Comparable<Level> {
   /// Constructs a log level with a given priority and label.
-  const Level(this.priority, this.label)
+  const new(this.priority, this.label)
     : assert(0 < priority && priority < 10000);
 
   /// Internal constructor for marker log levels.
-  const Level._(this.priority, this.label);
+  const new _(this.priority, this.label);
 
   /// Marker level used to enable all logging.
   static const all = Level._(0, 'all');

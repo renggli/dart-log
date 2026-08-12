@@ -49,7 +49,7 @@ enum Priority {
 
 /// A handler that sends log records to a syslog server.
 class SyslogHandler extends Handler {
-  SyslogHandler({this.host = 'localhost', this.port = 514});
+  new({this.host = 'localhost', this.port = 514});
 
   final String host;
   final int port;

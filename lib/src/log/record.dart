@@ -8,7 +8,7 @@ import 'logger.dart';
 ///
 /// Records are created by [Logger]s and processed by [Handler]s.
 class Record with ToStringPrinter {
-  Record({
+  new({
     required this.logger,
     required this.level,
     required this.message,

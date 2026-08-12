@@ -8,7 +8,7 @@ import '../record.dart';
 
 /// A handler that prints log records to stdout.
 class PrintHandler extends Handler {
-  PrintHandler({Printer<Record>? printer}) : printer = printer ?? basicPrinter;
+  new({Printer<Record>? printer}) : printer = printer ?? basicPrinter;
 
   final Printer<Record> printer;
 
