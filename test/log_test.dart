@@ -1,12 +1,10 @@
+import 'package:checks/checks.dart';
 import 'package:log/log.dart';
 import 'package:more/comparator.dart';
 import 'package:more/functional.dart';
-import 'package:test/test.dart';
+import 'package:test/scaffolding.dart';
 
-Matcher isRecord({dynamic level = anything, dynamic message = anything}) =>
-    isA<Record>()
-        .having((record) => record.level, 'level', level)
-        .having((record) => record.message, 'message', message);
+import 'test_utils.dart';
 
 void main() {
   final rootHandler = MemoryHandler();
@@ -21,23 +19,23 @@ void main() {
   group('constructors', () {
     test('root', () {
       final root = Logger.root;
-      expect(root, same(Logger.root));
-      expect(root.name, 'dart');
-      expect(root.parent, isNull);
-      expect(root.dispatchToParents, isNull);
-      expect(root.dispatchToHandlers, isNull);
-      expect(root.fullName, '');
-      expect(root.handlers, isNotEmpty);
+      check(root).identicalTo(Logger.root);
+      check(root.name).equals('dart');
+      check(root.parent).isNull();
+      check(root.dispatchToParents).isNull();
+      check(root.dispatchToHandlers).isNull();
+      check(root.fullName).equals('');
+      check(root.handlers).isNotEmpty();
     });
     test('child', () {
       final child = Logger('constructors.parent.child');
-      expect(child, same(Logger('constructors.parent.child')));
-      expect(child.name, 'child');
-      expect(child.parent, same(Logger('constructors.parent')));
-      expect(child.dispatchToParents, isNull);
-      expect(child.dispatchToHandlers, isNull);
-      expect(child.fullName, 'constructors.parent.child');
-      expect(child.handlers, isEmpty);
+      check(child).identicalTo(Logger('constructors.parent.child'));
+      check(child.name).equals('child');
+      check(child.parent).identicalTo(Logger('constructors.parent'));
+      check(child.dispatchToParents).isNull();
+      check(child.dispatchToHandlers).isNull();
+      check(child.fullName).equals('constructors.parent.child');
+      check(child.handlers).isEmpty();
     });
   });
   group('levels', () {
@@ -52,43 +50,37 @@ void main() {
         Level.fatal,
         Level.off,
       ];
-      expect(naturalComparable<Level>.isStrictlyOrdered(levels), isTrue);
+      check(naturalComparable<Level>.isStrictlyOrdered(levels)).isTrue();
     });
     test('trace', () {
       root.trace('Trace');
-      expect(rootHandler.buffer, [
-        isRecord(level: Level.trace, message: 'Trace'),
-      ]);
+      check(rootHandler.buffer)
+          .deepEquals([isRecord(level: Level.trace, message: 'Trace')]);
     });
     test('debug', () {
       root.debug('Debug');
-      expect(rootHandler.buffer, [
-        isRecord(level: Level.debug, message: 'Debug'),
-      ]);
+      check(rootHandler.buffer)
+          .deepEquals([isRecord(level: Level.debug, message: 'Debug')]);
     });
     test('info', () {
       root.info('Info');
-      expect(rootHandler.buffer, [
-        isRecord(level: Level.info, message: 'Info'),
-      ]);
+      check(rootHandler.buffer)
+          .deepEquals([isRecord(level: Level.info, message: 'Info')]);
     });
     test('warning', () {
       root.warning('Warning');
-      expect(rootHandler.buffer, [
-        isRecord(level: Level.warning, message: 'Warning'),
-      ]);
+      check(rootHandler.buffer)
+          .deepEquals([isRecord(level: Level.warning, message: 'Warning')]);
     });
     test('error', () {
       root.error('Error');
-      expect(rootHandler.buffer, [
-        isRecord(level: Level.error, message: 'Error'),
-      ]);
+      check(rootHandler.buffer)
+          .deepEquals([isRecord(level: Level.error, message: 'Error')]);
     });
     test('fatal', () {
       root.fatal('Fatal');
-      expect(rootHandler.buffer, [
-        isRecord(level: Level.fatal, message: 'Fatal'),
-      ]);
+      check(rootHandler.buffer)
+          .deepEquals([isRecord(level: Level.fatal, message: 'Fatal')]);
     });
   });
   group('parents', () {
@@ -100,31 +92,31 @@ void main() {
     });
     test('default', () {
       innerLogger.info('Propagation');
-      expect(innerHandler.buffer, [isRecord(message: 'Propagation')]);
-      expect(rootHandler.buffer, [isRecord(message: 'Propagation')]);
+      check(innerHandler.buffer).deepEquals([isRecord(message: 'Propagation')]);
+      check(rootHandler.buffer).deepEquals([isRecord(message: 'Propagation')]);
     });
     test('true', () {
       innerLogger.dispatchToParents = (record) => true;
       innerLogger.info('Propagation');
-      expect(innerHandler.buffer, [isRecord(message: 'Propagation')]);
-      expect(rootHandler.buffer, [isRecord(message: 'Propagation')]);
+      check(innerHandler.buffer).deepEquals([isRecord(message: 'Propagation')]);
+      check(rootHandler.buffer).deepEquals([isRecord(message: 'Propagation')]);
     });
     test('false', () {
       innerLogger.dispatchToParents = (record) => false;
       innerLogger.info('Propagation');
-      expect(innerHandler.buffer, [isRecord(message: 'Propagation')]);
-      expect(rootHandler.buffer, <Record>[]);
+      check(innerHandler.buffer).deepEquals([isRecord(message: 'Propagation')]);
+      check(rootHandler.buffer).isEmpty();
     });
     test('dynamic', () {
       innerLogger.dispatchToParents = (record) => record.level >= Level.info;
       innerLogger
         ..info('Propagation')
         ..trace('No propagation');
-      expect(innerHandler.buffer, [
+      check(innerHandler.buffer).deepEquals([
         isRecord(message: 'Propagation'),
         isRecord(message: 'No propagation'),
       ]);
-      expect(rootHandler.buffer, [isRecord(message: 'Propagation')]);
+      check(rootHandler.buffer).deepEquals([isRecord(message: 'Propagation')]);
     });
   });
   group('handlers', () {
@@ -137,19 +129,19 @@ void main() {
     });
     test('default', () {
       innerLogger.warning('Handled');
-      expect(innerHandler.buffer, [isRecord(message: 'Handled')]);
-      expect(rootHandler.buffer, [isRecord(message: 'Handled')]);
+      check(innerHandler.buffer).deepEquals([isRecord(message: 'Handled')]);
+      check(rootHandler.buffer).deepEquals([isRecord(message: 'Handled')]);
     });
     test('levels', () {
       innerLogger.level = Level.warning;
       for (final level in [Level.trace, Level.warning, Level.fatal]) {
         innerLogger.log(level, level.label);
       }
-      expect(innerHandler.buffer, [
+      check(innerHandler.buffer).deepEquals([
         for (final level in [Level.warning, Level.fatal])
           isRecord(level: level),
       ]);
-      expect(rootHandler.buffer, [
+      check(rootHandler.buffer).deepEquals([
         for (final level in [Level.trace, Level.warning, Level.fatal])
           isRecord(level: level),
       ]);
@@ -157,14 +149,14 @@ void main() {
     test('true', () {
       innerLogger.dispatchToHandlers = (record) => true;
       innerLogger.warning('Handled');
-      expect(innerHandler.buffer, [isRecord(message: 'Handled')]);
-      expect(rootHandler.buffer, [isRecord(message: 'Handled')]);
+      check(innerHandler.buffer).deepEquals([isRecord(message: 'Handled')]);
+      check(rootHandler.buffer).deepEquals([isRecord(message: 'Handled')]);
     });
     test('false', () {
       innerLogger.dispatchToHandlers = (record) => false;
       innerLogger.info('Handled');
-      expect(innerHandler.buffer, <Record>[]);
-      expect(rootHandler.buffer, [isRecord(message: 'Handled')]);
+      check(innerHandler.buffer).isEmpty();
+      check(rootHandler.buffer).deepEquals([isRecord(message: 'Handled')]);
     });
     test('dynamic', () {
       innerLogger.dispatchToHandlers = (record) =>
@@ -172,8 +164,8 @@ void main() {
       innerLogger
         ..warning('Handled')
         ..warning('Not handled');
-      expect(innerHandler.buffer, [isRecord(message: 'Handled')]);
-      expect(rootHandler.buffer, [
+      check(innerHandler.buffer).deepEquals([isRecord(message: 'Handled')]);
+      check(rootHandler.buffer).deepEquals([
         isRecord(message: 'Handled'),
         isRecord(message: 'Not handled'),
       ]);
@@ -184,11 +176,11 @@ void main() {
         ..addHandler(innerHandler)
         ..addHandler(innerHandler);
       innerLogger.info('Repeated');
-      expect(innerHandler.buffer, [
+      check(innerHandler.buffer).deepEquals([
         isRecord(message: 'Repeated'),
         isRecord(message: 'Repeated'),
       ]);
-      expect(rootHandler.buffer, [isRecord(message: 'Repeated')]);
+      check(rootHandler.buffer).deepEquals([isRecord(message: 'Repeated')]);
     });
   });
 }
